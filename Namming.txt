@@ -1,18 +1,18 @@
-Guardar listado de usuarios
-Mostrar el total del pago
-Resultado de la puntuación
+Guardar listado de usuarios -> saveUserList
+Mostrar el total del pago -> showTotalPayment
+Resultado de la puntuación -> scoreResult
 Fecha de nacimiento -> birthDate
 Nombre de la mama -> motherName
 Nombre del papa -> fatherName
-¿Operación erronea? -> errorOperation
+¿Operación erronea? -> isErrorOperation
 Apellido del cliente -> clientLastName
 Número de asistentes -> numberOfAttendees
 Dirección del estudiante -> studentAddress
-Obtener datos basicos del animal -> getAnimalBasicInfo
+Obtener datos basicos del animal -> getAnimal
 Número de celda del preso -> prisionerCellNumber
-Kilometros recorridos hasta Roma -> kmToRome
+Kilometros recorridos hasta Roma -> kilometersToCity
 Cantidad de tiempo programando -> programmingTime
-El pedido fue entregado -> orderDelivered
+El pedido fue entregado -> isOrderDelivered
 Obtener empresas -> getCompanies
 Eliminar empresa -> deleteCompany
 Actualizar empresa -> updateCompany
@@ -20,6 +20,33 @@ Obtener empresa -> getCompany
 Obtener marcador del partido de futbol -> getScoreSoccerGame
 Obtener marcador del partido de basketball -> getScoreBasketballGame
 Obtener marcador del partido de futsala -> getScoreFutsalGame
-Realizar prestamo de vivienda -> getLoanHouse
-Realizar prestamo de automovil -> getLoanCar
-Realizar prestamo de libre inversión -> getLoanFreeInvestment
+Realizar prestamo de vivienda -> setLoanHouse
+Realizar prestamo de automovil -> setLoanCar
+Realizar prestamo de libre inversión -> setLoanFreeInvestment
+
+
+Malo:
+1.  const yyyymmdstr = moment().format("YYYY/MM/DD");
+
+2. 
+getUserInfo();
+getClientData();
+getCustomerRecord();
+
+3. setTimeout(blastOff, 86400000);
+
+Bueno:
+
+
+
+1.  const dateFormat= moment().format("YYYY/MM/DD");
+
+2. 
+getUser();
+getClient();
+getCustomer();
+
+3. 
+const millisecondsOfDay = 86400000;
+setTimeout(blastOff, millisecondsOfDay);
+
