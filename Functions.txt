@@ -2,8 +2,30 @@ public boolean hasCreditCard(User user) {
   return user.hasCard;
 }
 
-Circle make(double ejeX, double ejeY, double radius);
+//Circle make(double ejeX, double ejeY, double radius);
+Circle makeCircle(Point center, double radius);
+
 
 public boolean check() {
   return numberToCompare < max;  
 }
+
+
+
+
+Monadicas: 
+Listado de palabras pregunta: 
+- is 
+- has
+- not
+- do
+
+Verbos Para las funciones Diadicas
+
+- write 
+- save
+- update
+- delete
+- make
+- build
+- execute
