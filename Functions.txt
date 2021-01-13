@@ -1,9 +1,9 @@
-boolean hasCreditCard(User user) {
+public boolean hasCreditCard(User user) {
   return user.hasCard;
 }
 
 Circle make(double ejeX, double ejeY, double radius);
 
 public boolean check() {
-  return a < max;  
+  return numberToCompare < max;  
 }
