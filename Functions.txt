@@ -64,4 +64,62 @@ public class UserValidator {
      }
 
    }
+   
+   
+   
+   
+   
+1. Eliminar código duplicado:
+
+function showDeveloperList(developers) {
+  developers.forEach(developer => {
+    const data = getData(manager, "githubLink");
+    render(data);
+  });
+}
+
+function showManagerList(managers) {
+  managers.forEach(manager => {
+	const data = getData(manager, "portfolio");
+    render(data);
+  });
+}
+
+
+function getData(user, valueType){
+	
+	return const data = {
+      getExpectedSalary(user),
+      getExperience(user),
+      getConstant(valueType)
+    };
+	
+}
+
+function getExpectedSalary(user){
+	return const expectedSalary = user.calculateExpectedSalary();
+}
+
+function getExperience(user){
+	return const experience = manager.getExperience();
+}
+
+function getConstant(valueType){
+	if(valueType.equals("githubLink")){
+		const constant =  developer.getGithubLink();
+	}else{
+		const constant = manager.getMBAProjects();
+	}
+	return constant;
+}
+
+
+
+
+
+
+
+
+
+
 
