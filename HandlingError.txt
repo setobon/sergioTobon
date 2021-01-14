@@ -2,11 +2,20 @@
  
 try{
 	List<Employee> employees = getEmployees();
-	if (employees != null) {
-		for(Employee e : employees) {
-			totalPay += e.getPay();
-		}
-	}
-}catch{
 	
+	for(Employee e : employees) {
+		totalPay += e.getPay();
+	}
+}catch (Exception exception) {
+	throw new Exception("Dont exist employee" + exception);
 }
+
+
+public List<Employee> getEmployees() {
+
+     if( .. there are no employees .. )
+
+       return Collections.emptyList();
+
+   }
+
