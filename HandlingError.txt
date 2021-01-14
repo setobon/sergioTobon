@@ -1,0 +1,12 @@
+ 1. Refactorizar para que no devuelva null
+ 
+try{
+	List<Employee> employees = getEmployees();
+	if (employees != null) {
+		for(Employee e : employees) {
+			totalPay += e.getPay();
+		}
+	}
+}catch{
+	
+}
