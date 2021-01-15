@@ -1,0 +1,89 @@
+1.)
+scaleToOneDimension y rotate
+
+ public void scaleToOneDimension(float desiredDimension, float imageDimension) {
+	 
+	if (Math.abs(desiredDimension - imageDimension) < errorThreshold){
+		 float scalingFactor = getScalingFactor(desiredDimension, imageDimension);
+		 
+		 RenderedOp newImage = ImageUtilities.getScaledImage(image, scalingFactor, scalingFactor);
+		 transformImage(newImage);
+	}
+}
+
+public float getScalingFactor(desiredDimension, imageDimension){
+	
+	float scalingFactor = desiredDimension / imageDimension;
+	return (float)(Math.floor(scalingFactor * 100) * 0.01f);
+}
+
+public synchronized void rotate(int degrees) {
+
+  RenderedOp newImage = ImageUtilities.getRotatedImage(image, degrees);
+  transformImage(newImage);
+}
+   
+public void transformImage(RenderedOp newImage){
+	image.dispose();
+	System.gc();
+	image = newImage;
+}
+   
+
+
+2.) Crear y nombrar los metodos, ejemplo:
+
+
+Para:     // code to calculate vacation based on hours worked to date
+
+creamos -->  calculateBaseVacationHours();
+
+Implementación --> 
+
+private void calculateBaseVacationHours() {
+	/* … */ 
+};
+
+abstract protected void alterForLegalMinimums();
+
+private void applyToPayroll() {
+	/* … */ 
+};
+
+public ... calculateVacationBasedOnHoursWorkedToDate(){
+	/* … */ 
+};
+
+public ... ensureVacationsMinimusToUS(){
+	/* … */ 
+}
+
+
+public ... applyVacationToPayrollRecord{
+	/* … */ 
+}
+
+   
+
+
+-----------------------------------------------
+
+public class VacationPolicy {
+	
+	public void accrueUSDivisionVacation() {
+
+		calculateVacationBasedOnHoursWorkedToDate();
+		ensureVacationsMinimusToUS();
+		applyVacationToPayrollRecord();
+	}
+
+
+
+	public void accrueEUDivisionVacation() {
+
+		calculateVacationBasedOnHoursWorkedToDate();
+		ensureVacationsMinimusToUS()
+		applyVacationToPayrollRecord();
+
+	}
+}
