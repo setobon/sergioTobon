@@ -5,7 +5,7 @@
  
  /*El problema que hay es que se valida el cupon después de intentar hacer pago del cupon, cuando lo primero que debe hacer es validar, a su vez, sus unicas responsabilidade es valida y pagar el cupon.*/
  
- public class Cupon(){
+ public class Cupon{
 	private int idCupon;
 	private Double valorCupon;
 	private int estadoCupon;
@@ -43,6 +43,32 @@
 	 /*Proceso crud*/
  }
  
+ 
+ 
+ 
+
+
+public class Student {
+
+	public void introduce() {
+		System.out.println("I am a common student");
+	}
+}
+
+public class HighSchoolStudent extends Student {
+
+	@Override
+	public void introduce() {
+		System.out.println("I am an high school student");
+	}
+}
+
+public class UnderGraduateStudent extends Student {
+	@Override
+	public void introduce() {
+		System.out.println("I am a under graduate student");
+	}
+}
 
  
  
