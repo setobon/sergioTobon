@@ -1,0 +1,391 @@
+1.) Limpiar el siguiente código: 
+
+https://github.com/stoyanr/Wordcounter/blob/master/wordcounter/src/main/java/com/stoyanr/util/Arguments.java
+
+private int parseInt(final String numberInString) throws ArgumentsException{
+
+	int result = 0;
+	private static final String ERROR_MESSAGE = "Can't parse %s to a number: %s"
+	
+	try {
+		result = Integer.parseInt(numberInString);
+	}catch (NumberFormatException exception) {
+		throw new ArgumentsException(String.format(
+		ERROR_MESSAGE, numberInString, exception.getMessage()), exception);
+	}
+	
+	return result;
+}
+
+
+
+2.) Limpiar el siguiente código:
+
+private void loadParams() throws Exception{
+
+	InputStream inputStream = null;
+	final String fileName = "server.properties";
+	Properties property = new Properties();
+	
+	loadFromCurrentDirectory(fileName, inputStream);
+
+	try {
+		if (inputStream == null) {
+			inputStream = loadFromClassPath(fileName);
+		}
+		property.load(inputStream);
+	} catch (Exception exception) {
+		throw new Exception("No se ha podido cargar los parametros", exception);
+	}
+}
+
+private void loadFromCurrentDirectory(String fileName, InputStream inputStream) {
+	File file = new File(fileName);
+	try {
+		inputStream = new FileInputStream(file);
+	} catch (FileNotFoundException exception) {
+		inputStream = null;
+		exception.printStackTrace();
+	}
+}
+
+private InputStream loadFromClassPath(String fileName) {
+	return getClass().getResourceAsStream(fileName);
+}
+
+
+
+
+3.) Cambie el nombre a la siguiente variable, la cuál representa la amortización base de un préstamo, que viene a ser el número de pagos en los que se va a liquidar el prestamo: 12 meses, 24 meses, etc.
+
+private int numberQuotsOfloanAmortization = 24;
+
+
+4.) Que le sucedió a la siguiente variable y cual fue la causa de su problema: 
+
+ List nameArray;
+
+
+5.) Limpie el siguiente código y comenta los cambios que hiciste en los commits.
+
+
+public void processProduct(Product product){
+	
+	log.debug("Executing processProduct with parameter: " + product);
+
+	long totalCost = 0L;
+	
+	product.setSellDate(Calendar.getInstance().getTime());
+	product.setLastUpdateOperator(ONLINE_SHOPPING);
+
+	if(IGAC.equals(product.getType()) || (SMA.equals(product.getType() && StringUtils.isBlank(product.getUser()))) ){
+		
+		log.warn("This product is no longer available: " + product);
+		product.setRejected(true);
+		throw new NoLongerAvailableProduct(product);
+		
+	}else{
+		totalCost = getTotalCost(product, totalCost)
+	}
+	
+	buyProduct(product, totalCost);
+	sendEmail(product);
+}
+
+
+private Long getTotalCost(Producto product, Long totalCost){
+	switch(product.getCode()){
+		case 1:
+			totalCost = product.getCost() * 0.85;
+			break;
+		case 2:
+			totalCost = product.getCost() + product.getAdditionalCharge()
+			break;
+		default:
+			totalCost = product.getCost();
+			break;
+	}
+
+	if(product.getDiscount != null && product.getDiscount() > 0){
+		totalCost -= product.getDiscount();
+	}
+	
+	return totalCost;
+}
+
+
+private void sendEmail(Product product){
+	EmailSender sender = new EmailSender();
+	String addressee = session.getParameter(USER);
+	String subject = getSubject(Product product);
+	String body = getBody(product, totalCost);
+	sender.send(subject, addressee);
+}
+
+private String getSubject(Product product){
+	return FORMAL_MESSAGE + product.getName().repleceAll(s, _);
+}
+
+private String getBody(Product product, Long totalCost){
+	return FORMAL_BODY.replaceFirst({product}, product.getName()).replaceFirst({price}, totalCost);
+}
+
+private void buyProduct(Product product, Long totalCost){
+	ProductRepository productRepository = RepositoryFactory.getInstance(PRODUCT_TYPE);
+	productRepository.buyProduct(product, totalCost);
+}
+
+
+
+
+
+6.) Refactorice el siguiente código enfocandose en el manejo de errores:
+
+class NestedIfElse {
+
+    private static final int SUCCESS = 1;
+    private static final int ERROR = 2;
+    private Registry registry;
+    private ConfigKeys configKeys;
+    private Logger logger;
+	private Static final String CONFIG_KEY = "configKey";
+	private Static final String DELETE_REFERENCE = "deleteReference";
+	private Static final String DELETE_PAGE = "deletePage";
+	
+	
+    public int delete(Page page) {
+        if (deletePage(page) == SUCCESS) {
+            if (registry.deleteReference(page.name) == SUCCESS) {
+                if (configKeys.deleteKey(page.name) == SUCCESS) {
+                    logger.info("page deleted");
+                } else {
+                    getLoggerError(CONFIG_KEY);
+                }
+            } else {
+                getLoggerError(DELETE_REFERENCE);
+            }
+        } else {
+            getLoggerError(DELETE_PAGE);
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
+    private int deletePage(Page page) {
+        if(page != null){
+			return 1;
+		}
+		return 2;
+    }
+	
+	private void getLoggerError(String errorType){
+		if(errorType.equals(CONFIG_KEY)){
+			logger.error("configKey not deleted");
+		}else if(errorType.equals(DELETE_REFERENCE)){
+				logger.error("deleteReference from registry failed");
+		}else{
+			logger.error("delete failed");
+		}
+	}
+}
+
+
+7.) El siguiente código tiene un efecto secundario, identifiquelo y refactorice.
+
+
+
+class User {
+
+    private Session session;
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public boolean passwordMatched(String password) {
+		return isMatched();
+    }
+}
+
+class Session {
+	//session attributes
+}
+
+class SessionService {
+
+    public Session login(User user, String password) {
+
+        if (user.getSession() != null) {
+            return user.getSession();
+        } else if (user.passwordMatched(password)) {
+            Session session = new Session();
+            user.setSession(session);
+            return session;
+        }
+        return null;
+    }
+}
+
+
+8.) Elimine el duplicado del siguiente código usando lambdas en java:
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.BinaryOperator;
+
+public class Duplication {
+    public static void main(String[] args) {
+		
+		private static String SUM = "sum";
+		private static String MULTIPLY = "multiply";
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        Integer sum = Math.operation(numbers, SUM);
+		Integer multiply = Math.operation(numbers, MULTIPLY);
+        
+		System.out.println("La suma de los numeros es: " + product);
+		System.out.println("La multiplicacion de los numeros es: " + multiply);
+    }
+}
+
+class Math {
+    public static Integer operation(List<Integer> numbers, String operationType) {
+        Integer sum = 0;
+		Integer product = 1;
+        for (Integer n : numbers) {
+			sum += n;
+			product *= n;
+		}
+		
+		if(operationType.equals(SUM)){
+			return sum;
+		}
+			return product;
+		
+    }
+}
+
+
+9.) Nombres con sentido:
+
+Todos los nombres deben ser __descriptivos y ______. Evita abreviaciones, , usar secuencias de números en variables y las palabras __redundantes (the-, a-, _-object, -info, -data). Usa nombres que se puedan ___ (evita variables a, e, l… usar i, j, k solo para __bucles cuyo contexto sea muy acotado).
+
+Es mejor usar un código en la implementación (que será privada y usada menos veces) que la interfaz => IShapeFactory, ShapeFactory —> ShapeFactory, ShapeFactoryImp
+
+Nombres de clases: Evitar sufijos _técnicos o __prefijos. No deben ser __cortos.
+
+Nombres de métodos: Utiliza __verbos. Usa get y set para métodos de acceso e _is para booleanos. Usa métodos estáticos con nombres con el tipo de argumento en lugar de _sobrecargar constructores_ (new Complex(23.0) –> Complex.FromRealNumber(23.0))
+
+No usar _juegos de palabras_, chistes o sutilezas. Intentar usar siempre las _mismas_ palabras para lo mismo (get, fetch, retrieve?). No usar una misma palabra para cosas distintas (__add es sum o insert?_).
+
+Usa nombres _intencionados_ cuando la intención sea técnica (Factory, Visitor, _Processor_, …) y nombres de dominio para conceptos de dominio.
+
+Añade _contexto__ a las variables, por ejemplo, agrupándolas en clases.
+
+Los nombres cuanto más _cortos_ mejor, siempre que sean explícitos y claros.
+
+
+
+Completa el texto anterior usando las siguientes palabras:
+
+
+
+
+
+
+
+
+
+Manager
+
+
+
+
+
+
+
+
+
+Facade
+
+
+
+
+
+buscar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10.)
+
+Formato:
+
+
+El tamaño de los ficheros no debería superar las _200_ líneas de media, con un límite máximo en _500_.
+
+Metáfora del periódico:
+
+Una clase comienza con un título descriptivo y una descripción sin _detalles_ que explica el contenido.
+Después vienen los detalles.
+El módulo o programa es una compilación de artículos grandes y pequeños.
+Podemos entender la clase con los métodos superiores sin necesidad de ahondar en los detalles.
+Separación de pensamientos y bloques con __líneas en blanco__ (como separar en párrafos).
+La distancia vertical entre elementos relacionados debe ser mínima, y como consecuencia, evitar separar elementos relacionados en 2 ficheros distintos (razón por la cual no se deben usar variables protected)
+
+Las variables se deben declarar lo más cerca posible a su uso. Las variables de _clase_ (de instancia) en la parte superior, ya que se usan en toda la clase.
+
+La anchura de las líneas de código, entre _80_ y _120_ caracteres, no deberíamos hacer _scroll horizontal_ para leer código.
+
+Los espacios en blanco se usan para separar _conceptos_ que queremos remarcar o que están desconexos con sus antecesores y predecesores. Ej: double determinant(double a, double b, double c) { return b*b – 4*a*c; }
+
+Intentar no romper el _sangrado_ aunque la longitud de la función o while sea mínima, lo importante es la claridad.
+
+Cualquier _equipo_ debería tener unas _reglas_ convenientemente consensuadas. Es importante seguirlas por parte de todos, el estilo y formato debe ser siempre el mismo ya que el código es compartido.
+
+
+
+
+
+Completa el texto anterior usando las siguientes palabras:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
