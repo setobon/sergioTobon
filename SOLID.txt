@@ -1,0 +1,47 @@
+ Se intenta realizar un pago de un cupon y luego de validar el precio se encuentra que el código del cupón es invalido. 
+ 
+ Aplique el SRP e indique que problema hay en la operación anterior y diga como solucionarlo mediante código o arquitectura.
+ 
+ 
+ /*El problema que hay es que se valida el cupon después de intentar hacer pago del cupon, cuando lo primero que debe hacer es validar, a su vez, sus unicas responsabilidade es valida y pagar el cupon.*/
+ 
+ public class Cupon(){
+	private int idCupon;
+	private Double valorCupon;
+	private int estadoCupon;
+	
+	/*getters and setters*/
+ }
+ 
+ 
+ public class CuponController(Cupon cupon){
+	 public Double pagarCupon(){
+		 cuponService.pagoCupon(Cupon cupon, Double valor);
+	 }
+ }
+ 
+ public Interface CuponService{
+	public Double pagoCupon(Cupon cupon, Double valor);
+	public boolean validarCupon(Cupon cupon);
+ }
+ 
+ public class CuponService implements CuponService{
+	
+	pagoCupon(Cupon cupon, Double valor){
+		if(validarCupon(cupon)){
+			cuponRepository.pagarCupon(cupon);
+		}
+	}
+	
+	public boolean validarCupon(Cupon cupon){
+		return cuponRepository.validarCupon(cupon);
+	} 
+ }
+ 
+ public Class CuponRepository(Cupon cupon) extends crudRepository{
+	 /*Proceso crud*/
+ }
+ 
+
+ 
+ 
