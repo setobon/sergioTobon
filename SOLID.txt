@@ -27,10 +27,11 @@
  
  public class CuponService implements CuponService{
 	
-	pagoCupon(Cupon cupon, Double valor){
+	public Double pagoCupon(Cupon cupon, Double valor){
 		if(validarCupon(cupon)){
-			cuponRepository.pagarCupon(cupon);
+			return cuponRepository.pagarCupon(cupon);
 		}
+		return 0;
 	}
 	
 	public boolean validarCupon(Cupon cupon){
