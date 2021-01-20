@@ -1,0 +1,44 @@
+Quieren una aplicación que realice el calculo la calificación de las materias de una escuela con base en las tareas y los examenes. Pero cada maestro determina cual es el porcentaje de valor de ellos.
+
+
+Aplicar mediante código una el principio en esta situación.
+
+
+public class Nota{
+	Double valorNota;
+	Double PorcentajeNota;
+	
+	Nota(Double valorNota, Double PorcentajeNota){
+		this.valorNota = valorNota;
+		this.PorcentajeNota = PorcentajeNota;
+	}
+	/*Getters and setters*/
+	
+}
+
+public class NotaFinal extends Nota{
+	
+	NotaFinal(Double valorNota, Double PorcentajeNota) {
+		super(valorNota, PorcentajeNota);
+		// TODO Auto-generated constructor stub
+	}
+	private Double cantidadNotas;
+	private Double notaFinal;
+	/*Getters and setters*/
+	
+	public Double getNotaFinal(Double cantidadNotas){
+	
+		/*pedido por teclado de la cantidad de notas*/
+		List <Nota> notas = new ArrayList();
+		double valorPorcentaje=1.0;
+		for(int inicial=0; inicial < cantidadNotas; inicial++){
+			 /*nota = pedido por teclado de la nota + inicial*/
+			/*porcentaje pedido por teclado del porcentaje de la nota*/
+			/*notas.add(new Nota(nota, porcentaje));*/
+		}
+		for(int inicial = 0; inicial < notas.size(); inicial++){
+			Double notaFinal = notaFinal + (notas.get(inicial).valorNota * notas.get(inicial).PorcentajeNota);
+		}
+		System.out.println("La nota final es " + notaFinal);
+	}
+}
